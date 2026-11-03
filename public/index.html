@@ -118,12 +118,17 @@
         }
 
         /* =====================================================
-           LOGO UNNES
+           KELOMPOK LOGO (DIUBAH)
         ===================================================== */
-        .unnes-logo {
-            width: 90px;
-            height: auto;
-            max-height: 90px;
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 15px; /* Jarak antara logo UNNES dan FH UNNES */
+        }
+
+        .brand-logo {
+            height: 60px; /* Memastikan kedua logo punya tinggi yang sama */
+            width: auto;
             object-fit: contain;
             display: block;
         }
@@ -380,13 +385,13 @@
         .berisik-mode .db-subtext { color: rgba(255,255,255,0.72); }
 
         /* =====================================================
-           RESPONSIVE
+           RESPONSIVE (DIUBAH SEDIKIT UNTUK LOGO)
         ===================================================== */
         @media (max-width: 800px) {
             .dashboard-wrapper { padding: 12px; }
             .card { min-height: calc(100vh - 24px); }
             .card-header { padding: 20px; }
-            .unnes-logo { width: 65px; max-height: 65px; }
+            .brand-logo { height: 45px; } /* Ukuran logo di layar kecil */
             .status-container { padding: 20px; }
             .icon-wrapper { width: 115px; height: 115px; font-size: 58px; margin-bottom: 30px; }
             .status-title { font-size: 4rem; letter-spacing: 3px; }
@@ -415,8 +420,12 @@
                     <div class="status-dot" id="statusDot"></div>
                     <span id="connectionBadge">OFFLINE</span>
                 </div>
-                <!-- LOGO UNNES -->
-                <img src="logo-unnes.png" alt="Logo UNNES" class="unnes-logo">
+                
+                <!-- KELOMPOK LOGO (DIUBAH) -->
+                <div class="logo-group">
+                    <img src="logo-unnes.png" alt="Logo UNNES" class="brand-logo">
+                    <img src="logo-fh-unnes.png" alt="Logo FH UNNES" class="brand-logo">
+                </div>
             </div>
 
             <!-- =================================================
