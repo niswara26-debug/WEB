@@ -106,7 +106,7 @@ body {
     padding: 26px 30px 12px 30px;
     display: flex;
     justify-content: space-between;
-    align-items: flex-start; /* Ubah ke flex-start agar badge sejajar atas */
+    align-items: flex-start;
     position: relative;
     z-index: 3;
 }
@@ -117,7 +117,7 @@ body {
 .badge-group {
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    align-items: center; /* DIUBAH KE CENTER */
     gap: 6px;
 }
 
@@ -154,7 +154,8 @@ body {
     font-weight: 700;
     font-family: 'Courier New', Courier, monospace;
     letter-spacing: 2px;
-    padding-left: 8px;
+    padding-left: 0; /* PADDING DIHAPUS */
+    text-align: center;
     transition: color 0.5s ease;
 }
 
@@ -340,7 +341,7 @@ body.berisik-mode { background: radial-gradient(circle at 20% 15%, rgba(239, 68,
     .card { border-radius: 24px; }
     .card-header { min-height: 72px; padding: 20px 18px 8px 18px; align-items: flex-start; }
     .brand-badge { padding: 8px 12px; font-size: 0.78rem; }
-    .header-clock { font-size: 0.95rem; padding-left: 4px; }
+    .header-clock { font-size: 0.95rem; padding-left: 0; }
     .status-container { min-height: 420px; padding: 38px 18px 52px; }
     .icon-wrapper { width: 110px; height: 110px; margin-bottom: 26px; font-size: 3.4rem; }
     .status-title { font-size: clamp(2.8rem, 15vw, 4.4rem); letter-spacing: 1px; }
