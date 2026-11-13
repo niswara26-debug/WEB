@@ -272,4 +272,111 @@ body.aman-mode { background: radial-gradient(circle at 20% 15%, rgba(16, 185, 12
 /* =========================================================
    DANGER THEME
    ========================================================= */
-.berisik-theme { border-color: rgba(239, 68
+.berisik-theme { border-color: rgba(239, 68, 68, 0.42); }
+.berisik-card { border-color: rgba(239, 68, 68, 0.52) !important; box-shadow: 0 25px 60px rgba(0, 0, 0, 0.48), 0 0 55px rgba(239, 68, 68, 0.06), inset 0 1px 0 rgba(255, 255, 255, 0.05); }
+.berisik-theme .status-title { color: var(--accent-red); text-shadow: 0 0 38px rgba(239, 68, 68, 0.38); }
+.berisik-theme .status-subtitle { color: var(--accent-red-light); font-weight: 800; }
+.berisik-theme .icon-wrapper { color: var(--accent-red); background: rgba(239, 68, 68, 0.10); border-color: rgba(239, 68, 68, 0.45); box-shadow: 0 0 55px rgba(239, 68, 68, 0.22); animation: pulse-icon 1s ease-in-out infinite alternate; }
+.berisik-theme .ripple-ring { border-color: rgba(239, 68, 68, 0.55); animation: ripple-effect 1.5s linear infinite; }
+body.berisik-mode { background: radial-gradient(circle at 20% 15%, rgba(239, 68, 68, 0.10), transparent 34%), radial-gradient(circle at 84% 84%, rgba(185, 28, 28, 0.07), transparent 40%), #050810; }
+
+/* =========================================================
+   ANIMATIONS
+   ========================================================= */
+@keyframes pulse-icon { 0% { transform: scale(1); } 100% { transform: scale(1.12); } }
+@keyframes ripple-effect { 0% { transform: translate(-50%, -50%) scale(0.75); opacity: 0.70; } 100% { transform: translate(-50%, -50%) scale(2.35); opacity: 0; } }
+
+/* =========================================================
+   BOTTOM PANEL
+   ========================================================= */
+.bottom-panel { width: 100%; padding: 30px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 30px; position: relative; z-index: 2; background: rgba(0, 0, 0, 0.19); border-top: 1px solid rgba(255, 255, 255, 0.08); }
+
+/* =========================================================
+   INFO BOX
+   ========================================================= */
+.info-box { min-height: 132px; padding: 25px 28px; display: flex; justify-content: space-between; align-items: center; gap: 20px; border-radius: 24px; background: rgba(255, 255, 255, 0.025); border: 1px solid rgba(255, 255, 255, 0.07); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.025); transition: background 0.3s ease, border-color 0.3s ease, transform 0.3s ease; }
+.info-box:hover { background: rgba(255, 255, 255, 0.042); border-color: rgba(255, 255, 255, 0.10); transform: translateY(-2px); }
+
+/* =========================================================
+   DB INFO GROUP
+   ========================================================= */
+.db-info-group { min-width: 0; display: flex; flex-direction: column; justify-content: center; gap: 6px; }
+
+/* =========================================================
+   LABEL & SUBTEXT
+   ========================================================= */
+.box-label { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+.db-subtext { color: #64748b; font-size: 0.85rem; line-height: 1.4; font-weight: 500; }
+
+/* =========================================================
+   DB VALUE CONTAINER
+   ========================================================= */
+.db-value-container { flex-shrink: 0; display: flex; align-items: baseline; gap: 8px; white-space: nowrap; }
+.db-value { color: var(--text-main); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 900; line-height: 1; letter-spacing: -1px; text-shadow: 0 6px 16px rgba(0, 0, 0, 0.30); transition: color 0.35s ease, text-shadow 0.35s ease; }
+.db-unit { color: var(--text-muted); font-size: 1.25rem; font-weight: 700; }
+
+/* =========================================================
+   TOGGLE SWITCH
+   ========================================================= */
+.switch { width: 76px; height: 40px; display: inline-block; position: relative; flex-shrink: 0; }
+.switch input { width: 0; height: 0; opacity: 0; position: absolute; }
+.slider { position: absolute; inset: 0; cursor: pointer; border-radius: 999px; background: #334155; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: inset 0 2px 7px rgba(0, 0, 0, 0.35); transition: background 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease; }
+.slider::before { content: ""; width: 30px; height: 30px; position: absolute; left: 4px; bottom: 4px; border-radius: 50%; background: #ffffff; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+.switch input:checked + .slider { background: var(--accent-green); box-shadow: 0 0 18px rgba(16, 185, 129, 0.30); }
+.switch input:checked + .slider::before { transform: translateX(36px); }
+.switch input:focus-visible + .slider { outline: 2px solid rgba(148, 163, 184, 0.55); outline-offset: 3px; }
+.switch input:disabled + .slider { cursor: not-allowed; opacity: 0.55; background: #1e293b; box-shadow: inset 0 2px 7px rgba(0, 0, 0, 0.35); }
+.switch input:disabled + .slider::before { background: #cbd5e1; }
+
+/* =========================================================
+   FOOTER
+   ========================================================= */
+.footer-info { width: 100%; padding: 0 10px 4px; text-align: center; color: #475569; font-size: 0.78rem; font-weight: 600; letter-spacing: 0.8px; text-transform: uppercase; }
+
+/* =========================================================
+   MOBILE
+   ========================================================= */
+@media (max-width: 767px) {
+    body { padding: 12px; }
+    .dashboard-wrapper { max-width: 100%; }
+    .card { border-radius: 24px; }
+    .card-header { min-height: 72px; padding: 20px 18px 8px 18px; }
+    .brand-badge { padding: 8px 12px; font-size: 0.78rem; }
+    .status-container { min-height: 420px; padding: 38px 18px 52px; }
+    .icon-wrapper { width: 110px; height: 110px; margin-bottom: 26px; font-size: 3.4rem; }
+    .digital-clock { margin-bottom: 15px; font-size: 2rem; }
+    .status-title { font-size: clamp(2.8rem, 15vw, 4.4rem); letter-spacing: 1px; }
+    .status-subtitle { max-width: 95%; margin-top: 16px; font-size: 1rem; }
+    .ripple-ring { width: 110px; height: 110px; }
+    .bottom-panel { padding: 18px; grid-template-columns: 1fr; gap: 15px; }
+    .info-box { min-height: 108px; padding: 20px; border-radius: 20px; }
+    .box-label { font-size: 0.78rem; letter-spacing: 0.8px; }
+    .db-subtext { font-size: 0.74rem; }
+    .db-value { font-size: 2.6rem; }
+    .db-unit { font-size: 1rem; }
+    .switch { width: 66px; height: 36px; }
+    .slider::before { width: 28px; height: 28px; left: 3px; bottom: 3px; }
+    .switch input:checked + .slider::before { transform: translateX(30px); }
+    .footer-info { font-size: 0.68rem; letter-spacing: 0.5px; }
+}
+
+/* =========================================================
+   VERY SMALL MOBILE
+   ========================================================= */
+@media (max-width: 420px) {
+    .card-header { align-items: flex-start; gap: 12px; }
+    .card-header > span { font-size: 0.70rem !important; letter-spacing: 0.7px !important; }
+    .status-container { min-height: 370px; }
+    .info-box { gap: 12px; }
+    .db-value { font-size: 2.25rem; }
+}
+
+/* =========================================================
+   LARGE SCREEN
+   ========================================================= */
+@media (min-width: 1200px) {
+    .status-container { min-height: 545px; }
+    .icon-wrapper { width: 155px; height: 155px; font-size: 4.8rem; }
+    .status-title { font-size: 6rem; }
+    .status-subtitle { font-size: 1.35rem; }
+}
