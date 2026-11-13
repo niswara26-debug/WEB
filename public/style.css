@@ -106,14 +106,21 @@ body {
     padding: 26px 30px 12px 30px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start; /* Ubah ke flex-start agar badge sejajar atas */
     position: relative;
     z-index: 3;
 }
 
 /* =========================================================
-   BRAND BADGE
+   BADGE & JAM DIGITAL DI KIRI ATAS
    ========================================================= */
+.badge-group {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+}
+
 .brand-badge {
     display: inline-flex;
     align-items: center;
@@ -131,9 +138,6 @@ body {
 
 .brand-logo { height: 32px; width: auto; object-fit: contain; display: block; }
 
-/* =========================================================
-   STATUS DOT
-   ========================================================= */
 .status-dot {
     width: 12px;
     height: 12px;
@@ -144,6 +148,19 @@ body {
     box-shadow: 0 0 14px currentColor;
     transition: background 0.35s ease, box-shadow 0.35s ease;
 }
+
+.header-clock {
+    font-size: 1.1rem;
+    font-weight: 700;
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+    padding-left: 8px;
+    transition: color 0.5s ease;
+}
+
+.menunggu-theme .header-clock { color: #dce5f2; }
+.aman-theme .header-clock { color: #e8f3ff; }
+.berisik-theme .header-clock { color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
 
 /* =========================================================
    STATUS CONTAINER
@@ -176,25 +193,6 @@ body {
     opacity: 0;
     pointer-events: none;
     z-index: 0;
-}
-
-/* =========================================================
-   JAM DIGITAL (BARU)
-   ========================================================= */
-.digital-clock {
-    font-size: clamp(2rem, 4vw, 3rem);
-    font-weight: 700;
-    font-family: 'Courier New', Courier, monospace;
-    color: #ffffff;
-    opacity: 0.9;
-    margin-bottom: 25px;
-    letter-spacing: 4px;
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-    z-index: 2;
-}
-
-.berisik-theme .digital-clock {
-    text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
 }
 
 /* =========================================================
@@ -340,11 +338,11 @@ body.berisik-mode { background: radial-gradient(circle at 20% 15%, rgba(239, 68,
     body { padding: 12px; }
     .dashboard-wrapper { max-width: 100%; }
     .card { border-radius: 24px; }
-    .card-header { min-height: 72px; padding: 20px 18px 8px 18px; }
+    .card-header { min-height: 72px; padding: 20px 18px 8px 18px; align-items: flex-start; }
     .brand-badge { padding: 8px 12px; font-size: 0.78rem; }
+    .header-clock { font-size: 0.95rem; padding-left: 4px; }
     .status-container { min-height: 420px; padding: 38px 18px 52px; }
     .icon-wrapper { width: 110px; height: 110px; margin-bottom: 26px; font-size: 3.4rem; }
-    .digital-clock { margin-bottom: 15px; font-size: 2rem; }
     .status-title { font-size: clamp(2.8rem, 15vw, 4.4rem); letter-spacing: 1px; }
     .status-subtitle { max-width: 95%; margin-top: 16px; font-size: 1rem; }
     .ripple-ring { width: 110px; height: 110px; }
