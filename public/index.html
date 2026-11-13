@@ -111,26 +111,20 @@
             width: 100%;
             padding: 28px 38px;
             display: flex;
-            align-items: center;
+            align-items: flex-start;
             justify-content: space-between;
             position: relative;
             z-index: 20;
         }
 
         /* =====================================================
-           KELOMPOK LOGO
+           BADGE & JAM DIGITAL DI KIRI ATAS
         ===================================================== */
-        .logo-group {
+        .badge-group {
             display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .brand-logo {
-            height: 60px;
-            width: auto;
-            object-fit: contain;
-            display: block;
+            flex-direction: column;
+            align-items: flex-start;
+            gap: 6px;
         }
 
         .brand-badge {
@@ -152,6 +146,35 @@
             background: #8190a6;
         }
 
+        .header-clock {
+            font-size: 1.1rem;
+            font-weight: 700;
+            font-family: 'Courier New', Courier, monospace;
+            letter-spacing: 2px;
+            padding-left: 8px;
+            transition: color 0.5s ease;
+        }
+
+        .menunggu-mode .header-clock { color: #dce5f2; }
+        .aman-mode .header-clock { color: #e8f3ff; }
+        .berisik-mode .header-clock { color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+
+        /* =====================================================
+           KELOMPOK LOGO
+        ===================================================== */
+        .logo-group {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .brand-logo {
+            height: 60px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
         /* =====================================================
            STATUS AREA
         ===================================================== */
@@ -164,25 +187,6 @@
             text-align: center;
             padding: 35px;
             position: relative;
-        }
-
-        /* =====================================================
-           JAM DIGITAL
-        ===================================================== */
-        .digital-clock {
-            font-size: clamp(2rem, 4vw, 3rem);
-            font-weight: 700;
-            font-family: 'Courier New', Courier, monospace;
-            color: #ffffff;
-            opacity: 0.9;
-            margin-bottom: 25px;
-            letter-spacing: 4px;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.3);
-            z-index: 2;
-        }
-
-        .berisik-mode .digital-clock {
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.6);
         }
 
         /* =====================================================
@@ -409,10 +413,10 @@
         @media (max-width: 800px) {
             .dashboard-wrapper { padding: 12px; }
             .card { min-height: calc(100vh - 24px); }
-            .card-header { padding: 20px; }
-            .brand-logo { height: 45px; }
+            .card-header { padding: 20px; flex-direction: row; align-items: flex-start; }
+            .brand-logo { height: 45px; } 
+            .header-clock { font-size: 0.95rem; padding-left: 4px; }
             .status-container { padding: 20px; }
-            .digital-clock { margin-bottom: 15px; font-size: 2rem; }
             .icon-wrapper { width: 115px; height: 115px; font-size: 58px; margin-bottom: 30px; }
             .status-title { font-size: 4rem; letter-spacing: 3px; }
             .bottom-panel { grid-template-columns: 1fr; padding: 20px; gap: 15px; }
@@ -436,11 +440,18 @@
                  HEADER
             ================================================== -->
             <div class="card-header">
-                <div class="brand-badge">
-                    <div class="status-dot" id="statusDot"></div>
-                    <span id="connectionBadge">OFFLINE</span>
+                
+                <!-- GROUP KIRI: BADGE & JAM DIGITAL -->
+                <div class="badge-group">
+                    <div class="brand-badge">
+                        <div class="status-dot" id="statusDot"></div>
+                        <span id="connectionBadge">OFFLINE</span>
+                    </div>
+                    <!-- Jam digital pindah ke sini -->
+                    <div id="digitalClock" class="header-clock">00:00:00</div>
                 </div>
                 
+                <!-- KELOMPOK LOGO -->
                 <div class="logo-group">
                     <img src="logo-unnes.png" alt="Logo UNNES" class="brand-logo">
                     <img src="logo-fh-unnes.png" alt="Logo FH UNNES" class="brand-logo">
@@ -451,10 +462,6 @@
                  STATUS
             ================================================== -->
             <div class="status-container" id="statusContainer">
-                
-                <!-- JAM DIGITAL -->
-                <div id="digitalClock" class="digital-clock">00:00:00</div>
-
                 <!-- ICON -->
                 <div class="icon-wrapper" id="statusIcon">⏳</div>
 
