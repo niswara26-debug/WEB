@@ -308,31 +308,28 @@ body.berisik-mode { background: radial-gradient(circle at 20% 15%, rgba(239, 68,
 .box-label { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
 .db-subtext { color: #64748b; font-size: 0.85rem; line-height: 1.4; font-weight: 500; }
 
-.activity-status { font-weight: 700; }
-.activity-low { color: var(--accent-green-light); }
-.activity-medium { color: #fbbf24; }
-.activity-high { color: var(--accent-red-light); }
-.berisik-mode .activity-status { color: #ffffff; }
-
 /* =========================================================
-   DB VALUE CONTAINER
+   DB VALUE CONTAINER & ACTIVITY VALUE
    ========================================================= */
 .db-value-container { flex-shrink: 0; display: flex; align-items: baseline; gap: 8px; white-space: nowrap; }
 .db-value { color: var(--text-main); font-size: clamp(2.4rem, 5vw, 4rem); font-weight: 900; line-height: 1; letter-spacing: -1px; text-shadow: 0 6px 16px rgba(0, 0, 0, 0.30); transition: color 0.35s ease, text-shadow 0.35s ease; }
 .db-unit { color: var(--text-muted); font-size: 1.25rem; font-weight: 700; }
 
-/* =========================================================
-   TOGGLE SWITCH
-   ========================================================= */
-.switch { width: 76px; height: 40px; display: inline-block; position: relative; flex-shrink: 0; }
-.switch input { width: 0; height: 0; opacity: 0; position: absolute; }
-.slider { position: absolute; inset: 0; cursor: pointer; border-radius: 999px; background: #334155; border: 1px solid rgba(255, 255, 255, 0.08); box-shadow: inset 0 2px 7px rgba(0, 0, 0, 0.35); transition: background 0.35s ease, box-shadow 0.35s ease, opacity 0.35s ease; }
-.slider::before { content: ""; width: 30px; height: 30px; position: absolute; left: 4px; bottom: 4px; border-radius: 50%; background: #ffffff; box-shadow: 0 4px 10px rgba(0, 0, 0, 0.35); transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
-.switch input:checked + .slider { background: var(--accent-green); box-shadow: 0 0 18px rgba(16, 185, 129, 0.30); }
-.switch input:checked + .slider::before { transform: translateX(36px); }
-.switch input:focus-visible + .slider { outline: 2px solid rgba(148, 163, 184, 0.55); outline-offset: 3px; }
-.switch input:disabled + .slider { cursor: not-allowed; opacity: 0.55; background: #1e293b; box-shadow: inset 0 2px 7px rgba(0, 0, 0, 0.35); }
-.switch input:disabled + .slider::before { background: #cbd5e1; }
+.activity-value {
+    color: var(--text-muted);
+    font-size: clamp(1.8rem, 3.4vw, 2.8rem);
+    font-weight: 900;
+    line-height: 1;
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+    text-shadow: 0 6px 16px rgba(0, 0, 0, 0.30);
+    transition: color 0.35s ease;
+}
+
+.activity-low { color: var(--accent-green-light); }
+.activity-medium { color: #fbbf24; }
+.activity-high { color: var(--accent-red-light); }
+.berisik-mode .activity-value { color: #ffffff; }
 
 /* =========================================================
    FOOTER
@@ -360,9 +357,7 @@ body.berisik-mode { background: radial-gradient(circle at 20% 15%, rgba(239, 68,
     .db-subtext { font-size: 0.74rem; }
     .db-value { font-size: 2.6rem; }
     .db-unit { font-size: 1rem; }
-    .switch { width: 66px; height: 36px; }
-    .slider::before { width: 28px; height: 28px; left: 3px; bottom: 3px; }
-    .switch input:checked + .slider::before { transform: translateX(30px); }
+    .activity-value { font-size: 2rem; }
     .footer-info { font-size: 0.68rem; letter-spacing: 0.5px; }
 }
 
@@ -375,6 +370,7 @@ body.berisik-mode { background: radial-gradient(circle at 20% 15%, rgba(239, 68,
     .status-container { min-height: 370px; }
     .info-box { gap: 12px; }
     .db-value { font-size: 2.25rem; }
+    .activity-value { font-size: 1.75rem; }
 }
 
 /* =========================================================
