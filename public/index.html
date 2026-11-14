@@ -123,7 +123,7 @@
         .badge-group {
             display: flex;
             flex-direction: column;
-            align-items: center; /* DIBUAT CENTER */
+            align-items: center;
             gap: 6px;
         }
 
@@ -147,11 +147,12 @@
         }
 
         .header-clock {
-            font-size: 1.1rem;
+            font-size: 1.05rem;
             font-weight: 700;
-            font-family: 'Courier New', Courier, monospace;
-            letter-spacing: 2px;
-            padding-left: 0; /* PADDING DIHAPUS AGAR BENAR-BENAR DI TENGAH */
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+            padding-left: 0;
             text-align: center;
             transition: color 0.5s ease;
         }
@@ -265,6 +266,15 @@
             font-size: 0.95rem;
             color: rgba(255,255,255,0.60);
         }
+
+        .activity-status {
+            font-weight: 700;
+        }
+
+        .activity-low { color: #34d399; }
+        .activity-medium { color: #fbbf24; }
+        .activity-high { color: #fca5a5; }
+        .berisik-mode .activity-status { color: #ffffff; }
 
         .db-value-container {
             display: flex;
@@ -415,7 +425,7 @@
             .dashboard-wrapper { padding: 12px; }
             .card { min-height: calc(100vh - 24px); }
             .card-header { padding: 20px; flex-direction: row; align-items: flex-start; }
-            .brand-logo { height: 45px; } 
+            .brand-logo { height: 45px; }
             .header-clock { font-size: 0.95rem; padding-left: 0; }
             .status-container { padding: 20px; }
             .icon-wrapper { width: 115px; height: 115px; font-size: 58px; margin-bottom: 30px; }
@@ -448,7 +458,6 @@
                         <div class="status-dot" id="statusDot"></div>
                         <span id="connectionBadge">OFFLINE</span>
                     </div>
-                    <!-- Jam digital pindah ke sini -->
                     <div id="digitalClock" class="header-clock">00:00:00</div>
                 </div>
                 
@@ -485,6 +494,7 @@
                 <!-- dB -->
                 <div class="info-box">
                     <div class="db-info-group">
+                        <span class="db-subtext">Aktivitas Ruangan: <span id="activityValue" class="activity-status">-</span></span>
                         <span class="box-label">🎙️ INTENSITAS SUARA</span>
                         <span class="db-subtext">Ambang Batas: 55 dB</span>
                     </div>
@@ -536,6 +546,7 @@
         const statusDot = document.getElementById("statusDot");
         const connectionBadge = document.getElementById("connectionBadge");
         const dbValue = document.getElementById("dbValue");
+        const activityValue = document.getElementById("activityValue");
         const buzzerToggle = document.getElementById("buzzerToggle");
         const warningMessage = document.getElementById("warningMessage");
 
@@ -556,6 +567,34 @@
         setInterval(updateClock, 1000);
         updateClock();
 
+        // =====================================================
+        // UPDATE KETERANGAN AKTIVITAS RUANGAN
+        // =====================================================
+        function updateActivityState(data) {
+            if (!activityValue) return;
+
+            const rawActivity = data.aktivitas ?? data.activity;
+
+            if (!rawActivity) {
+                activityValue.innerText = "-";
+                activityValue.className = "activity-status";
+                return;
+            }
+
+            const level = String(rawActivity).trim().toUpperCase();
+            activityValue.innerText = level;
+
+            if (level === "RENDAH") {
+                activityValue.className = "activity-status activity-low";
+            } else if (level === "SEDANG") {
+                activityValue.className = "activity-status activity-medium";
+            } else if (level === "TINGGI") {
+                activityValue.className = "activity-status activity-high";
+            } else {
+                activityValue.className = "activity-status";
+            }
+        }
+
         function clearDangerElements() {
             warningMessage.style.display = "none";
             warningMessage.innerHTML = "";
@@ -574,6 +613,8 @@
             statusText.innerHTML = "MENUNGGU";
             statusSub.innerText = "Menunggu menghubungkan ESP32...";
             dbValue.innerText = "0.0";
+            activityValue.innerText = "-";
+            activityValue.className = "activity-status";
             buzzerToggle.checked = false;
             buzzerToggle.disabled = true;
         }
@@ -594,6 +635,7 @@
             } else {
                 dbValue.innerText = "0.0";
             }
+            updateActivityState(data);
             updateBuzzerState(data);
         }
 
@@ -619,6 +661,7 @@
             } else {
                 dbValue.innerText = "0.0";
             }
+            updateActivityState(data);
             updateBuzzerState(data);
         }
 
@@ -695,6 +738,8 @@
                 statusText.innerHTML = "KONEKSI TERPUTUS";
                 statusSub.innerText = "Tidak dapat menghubungi Cloudflare Worker...";
                 dbValue.innerText = "0.0";
+                activityValue.innerText = "-";
+                activityValue.className = "activity-status";
                 buzzerToggle.checked = false;
                 buzzerToggle.disabled = true;
             }
