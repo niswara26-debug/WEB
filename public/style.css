@@ -117,7 +117,7 @@ body {
 .badge-group {
     display: flex;
     flex-direction: column;
-    align-items: center; /* DIUBAH KE CENTER */
+    align-items: center;
     gap: 6px;
 }
 
@@ -150,11 +150,12 @@ body {
 }
 
 .header-clock {
-    font-size: 1.1rem;
+    font-size: 1.05rem;
     font-weight: 700;
-    font-family: 'Courier New', Courier, monospace;
-    letter-spacing: 2px;
-    padding-left: 0; /* PADDING DIHAPUS */
+    font-family: inherit;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 1px;
+    padding-left: 0;
     text-align: center;
     transition: color 0.5s ease;
 }
@@ -306,6 +307,12 @@ body.berisik-mode { background: radial-gradient(circle at 20% 15%, rgba(239, 68,
    ========================================================= */
 .box-label { display: flex; align-items: center; gap: 8px; color: var(--text-muted); font-size: 0.95rem; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
 .db-subtext { color: #64748b; font-size: 0.85rem; line-height: 1.4; font-weight: 500; }
+
+.activity-status { font-weight: 700; }
+.activity-low { color: var(--accent-green-light); }
+.activity-medium { color: #fbbf24; }
+.activity-high { color: var(--accent-red-light); }
+.berisik-mode .activity-status { color: #ffffff; }
 
 /* =========================================================
    DB VALUE CONTAINER
