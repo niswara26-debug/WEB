@@ -222,4 +222,713 @@
             transform: translateX(-50%);
             width: 66px;
             height: 66px;
-            border
+            border-radius: 50%;
+            background: linear-gradient(180deg, #fdba74 0%, #f97316 55%, #db2777 100%);
+            box-shadow: 0 0 32px rgba(249, 115, 22, 0.75);
+        }
+        .horizon-sore {
+            position: absolute;
+            bottom: 38px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 190px;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, rgba(253, 186, 116, 0.6), transparent);
+        }
+        .cloud-sore-1 { width: 68px; height: 14px; top: 54px; left: 72px; background: rgba(251, 146, 60, 0.18); animation: driftRight 9s ease-in-out infinite alternate; }
+        .cloud-sore-2 { width: 54px; height: 12px; top: 68px; right: 74px; background: rgba(192, 132, 252, 0.18); animation: driftLeft 8.5s ease-in-out infinite alternate; }
+
+        /* --- Detail Ornamen Malam --- */
+        .moon-malam {
+            position: absolute;
+            top: 38px;
+            left: 50%;
+            transform: translateX(-50%) rotate(-18deg);
+            width: 52px;
+            height: 52px;
+            border-radius: 50%;
+            box-shadow: -13px 7px 0 0 #e0e7ff, -13px 7px 24px rgba(165, 180, 252, 0.55);
+            animation: floatSlow 7s ease-in-out infinite;
+        }
+        .star {
+            position: absolute;
+            width: 3px;
+            height: 3px;
+            border-radius: 50%;
+            background: #ffffff;
+            box-shadow: 0 0 8px #c7d2fe;
+            animation: twinkle 2.8s ease-in-out infinite alternate;
+        }
+        .star-1 { top: 34px; left: 92px; animation-delay: 0.2s; }
+        .star-2 { top: 66px; left: 74px; width: 2px; height: 2px; animation-delay: 1.1s; }
+        .star-3 { top: 42px; right: 94px; animation-delay: 0.7s; }
+        .star-4 { top: 76px; right: 78px; width: 2px; height: 2px; animation-delay: 1.6s; }
+        .star-5 { top: 102px; left: 118px; width: 2.5px; height: 2.5px; animation-delay: 0.4s; }
+        .star-6 { top: 106px; right: 116px; width: 2.5px; height: 2.5px; animation-delay: 1.9s; }
+
+        @keyframes floatSlow {
+            0%, 100% { transform: translateX(-50%) translateY(0px); }
+            50% { transform: translateX(-50%) translateY(-5px); }
+        }
+        @keyframes spinSlow {
+            from { transform: translateX(-50%) rotate(0deg); }
+            to { transform: translateX(-50%) rotate(360deg); }
+        }
+        @keyframes driftRight {
+            from { transform: translateX(-6px); }
+            to { transform: translateX(8px); }
+        }
+        @keyframes driftLeft {
+            from { transform: translateX(6px); }
+            to { transform: translateX(-8px); }
+        }
+        @keyframes twinkle {
+            0% { opacity: 0.25; transform: scale(0.85); }
+            100% { opacity: 1; transform: scale(1.25); }
+        }
+
+        /* =====================================================
+           HEADER
+        ===================================================== */
+        .card-header {
+            width: 100%;
+            padding: 28px 38px;
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            position: relative;
+            z-index: 20;
+        }
+
+        .badge-group {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .brand-badge {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 20px;
+            border-radius: 999px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.06);
+            font-size: 1rem;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        .status-dot {
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #8190a6;
+        }
+
+        .header-clock {
+            font-size: 1.05rem;
+            font-weight: 700;
+            font-family: inherit;
+            font-variant-numeric: tabular-nums;
+            letter-spacing: 1px;
+            padding-left: 0;
+            text-align: center;
+            transition: color 0.5s ease;
+        }
+
+        .menunggu-mode .header-clock { color: #dce5f2; }
+        .aman-mode .header-clock { color: #e8f3ff; }
+        .berisik-mode .header-clock { color: #ffffff; text-shadow: 0 0 10px rgba(255, 255, 255, 0.5); }
+
+        .logo-group {
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+        }
+
+        .brand-logo {
+            height: 62px;
+            width: auto;
+            object-fit: contain;
+            display: block;
+        }
+
+        /* =====================================================
+           STATUS AREA
+        ===================================================== */
+        .status-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 55px 35px 35px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .icon-wrapper {
+            width: 155px;
+            height: 155px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 75px;
+            margin-bottom: 35px;
+            border: 2px solid rgba(255,255,255,0.12);
+            background: rgba(15, 20, 30, 0.72);
+            backdrop-filter: blur(8px);
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.55);
+        }
+
+        .status-title {
+            font-size: clamp(4rem, 8vw, 8rem);
+            line-height: 0.95;
+            font-weight: 900;
+            letter-spacing: 5px;
+            color: #ffffff;
+            margin-bottom: 20px;
+        }
+
+        .status-subtitle {
+            font-size: clamp(1.1rem, 2vw, 1.6rem);
+            font-weight: 600;
+            opacity: 0.82;
+            max-width: 1050px;
+            line-height: 1.45;
+        }
+
+        /* =====================================================
+           PANEL DATA
+        ===================================================== */
+        .bottom-panel {
+            width: 100%;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 35px;
+            padding: 30px 38px 38px;
+            border-top: 1px solid rgba(255,255,255,0.08);
+            position: relative;
+            z-index: 10;
+        }
+
+        .info-box {
+            min-height: 130px;
+            padding: 25px 35px;
+            border-radius: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: rgba(255,255,255,0.025);
+            border: 1px solid rgba(255,255,255,0.08);
+        }
+
+        .db-info-group {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .box-label {
+            font-size: 1.05rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .db-subtext {
+            font-size: 0.95rem;
+            color: rgba(255,255,255,0.55);
+        }
+
+        .db-value-container {
+            display: flex;
+            align-items: baseline;
+            gap: 10px;
+        }
+
+        .db-value {
+            font-size: clamp(3rem, 5vw, 5rem);
+            font-weight: 900;
+        }
+
+        .db-unit {
+            font-size: 1.4rem;
+            font-weight: 700;
+            opacity: 0.75;
+        }
+
+        .activity-value {
+            font-size: clamp(2.2rem, 3.6vw, 3.4rem);
+            font-weight: 900;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #94a3b8;
+            transition: color 0.35s ease;
+        }
+
+        .activity-low { color: #34d399; }
+        .activity-medium { color: #fbbf24; }
+        .activity-high { color: #fca5a5; }
+        .berisik-mode .activity-value { color: #ffffff; }
+
+        .footer-info {
+            margin-top: 16px;
+            font-size: 0.78rem;
+            letter-spacing: 2px;
+            opacity: 0.45;
+            text-align: center;
+        }
+
+        /* =====================================================
+           MODE BAHAYA (OVERRIDES)
+        ===================================================== */
+        .berisik-mode .dashboard-wrapper { padding: 0; min-height: 100vh; }
+        .berisik-mode .card { width: 100%; min-height: 100vh; border-radius: 0; border: none; background: linear-gradient(180deg, #a50d06, #8e0804); box-shadow: none; }
+        .berisik-mode .card-header { padding: 28px 38px; }
+        .berisik-mode .brand-badge { background: rgba(0,0,0,0.18); color: #ffffff; }
+        .berisik-mode .status-dot { background: #ffffff !important; box-shadow: 0 0 12px rgba(255,255,255,0.8); }
+        .berisik-mode .status-container { justify-content: center; padding: 25px 30px 45px; }
+
+        .warning-message {
+            font-size: clamp(1.2rem, 2vw, 2rem);
+            font-weight: 500;
+            line-height: 1.5;
+            max-width: 1250px;
+            margin-bottom: 25px;
+            text-transform: uppercase;
+            color: #ffffff;
+        }
+
+        .warning-logo {
+            width: 165px;
+            height: 145px;
+            position: relative;
+            margin: 5px auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #ed2017;
+            clip-path: polygon(50% 0%, 100% 100%, 0% 100%);
+            filter: drop-shadow(0 8px 12px rgba(0,0,0,0.25));
+        }
+
+        .warning-logo::before {
+            content: "!";
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: #ffffff;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 88px;
+            font-weight: 900;
+            line-height: 1;
+        }
+
+        .berisik-mode .status-title {
+            font-size: clamp(4.5rem, 10vw, 10rem);
+            font-weight: 900;
+            letter-spacing: 6px;
+            color: #ffffff;
+            margin: 5px 0 15px;
+        }
+
+        .warning-reference { font-size: clamp(1rem, 1.8vw, 1.5rem); line-height: 1.5; font-weight: 500; color: #ffffff; }
+        .warning-limit { font-size: clamp(0.95rem, 1.6vw, 1.35rem); margin-top: 4px; color: #ffffff; }
+
+        .berisik-mode .bottom-panel { background: rgba(60,0,0,0.12); border-top: 1px solid rgba(255,255,255,0.15); }
+        .berisik-mode .info-box { background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.14); }
+        .berisik-mode .db-subtext { color: rgba(255,255,255,0.72); }
+
+        /* =====================================================
+           RESPONSIVE
+        ===================================================== */
+        @media (max-width: 800px) {
+            .dashboard-wrapper { padding: 12px; }
+            .card { min-height: calc(100vh - 24px); }
+            .sky-dome { width: 220px; height: 110px; }
+            .sun-pagi, .sun-siang { width: 38px; height: 38px; top: 24px; }
+            .halo-pagi, .rays-siang { width: 66px; height: 66px; top: 10px; }
+            .sun-sore { width: 44px; height: 44px; bottom: 14px; }
+            .moon-malam { width: 36px; height: 36px; top: 24px; }
+            .card-header { padding: 20px; flex-direction: row; align-items: flex-start; }
+            .brand-logo { height: 48px; }
+            .header-clock { font-size: 0.95rem; padding-left: 0; }
+            .status-container { padding: 45px 20px 20px; }
+            .icon-wrapper { width: 115px; height: 115px; font-size: 58px; margin-bottom: 30px; }
+            .status-title { font-size: 4rem; letter-spacing: 3px; }
+            .bottom-panel { grid-template-columns: 1fr; padding: 20px; gap: 15px; }
+            .info-box { min-height: 105px; padding: 20px; }
+            .db-value { font-size: 3rem; }
+            .activity-value { font-size: 2.2rem; }
+            .berisik-mode .card { min-height: 100vh; }
+            .warning-message { font-size: 1rem; max-width: 95%; }
+            .warning-logo { width: 125px; height: 110px; }
+            .warning-logo::before { font-size: 70px; }
+            .berisik-mode .status-title { font-size: 4rem; letter-spacing: 3px; }
+        }
+    </style>
+</head>
+
+<body class="menunggu-mode time-malam" id="body">
+
+    <div class="dashboard-wrapper">
+        <div class="card menunggu-theme" id="mainCard">
+
+            <!-- =================================================
+                 ORNAMEN BENDA LANGIT (SETENGAH LINGKARAN ATAS TENGAH)
+            ================================================== -->
+            <div class="sky-dome" aria-hidden="true">
+                <!-- Pagi (05:01 - 10:00) -->
+                <div class="sky-scene scene-pagi">
+                    <div class="halo-pagi"></div>
+                    <div class="sun-pagi"></div>
+                    <div class="cloud-mini cloud-pagi-1"></div>
+                    <div class="cloud-mini cloud-pagi-2"></div>
+                </div>
+
+                <!-- Siang (10:01 - 15:00) -->
+                <div class="sky-scene scene-siang">
+                    <div class="rays-siang"></div>
+                    <div class="sun-siang"></div>
+                    <div class="cloud-mini cloud-siang-1"></div>
+                    <div class="cloud-mini cloud-siang-2"></div>
+                </div>
+
+                <!-- Sore (15:01 - 20:00) -->
+                <div class="sky-scene scene-sore">
+                    <div class="sun-sore"></div>
+                    <div class="horizon-sore"></div>
+                    <div class="cloud-mini cloud-sore-1"></div>
+                    <div class="cloud-mini cloud-sore-2"></div>
+                </div>
+
+                <!-- Malam (20:01 - 05:00) -->
+                <div class="sky-scene scene-malam">
+                    <div class="moon-malam"></div>
+                    <div class="star star-1"></div>
+                    <div class="star star-2"></div>
+                    <div class="star star-3"></div>
+                    <div class="star star-4"></div>
+                    <div class="star star-5"></div>
+                    <div class="star star-6"></div>
+                </div>
+            </div>
+
+            <!-- =================================================
+                 HEADER
+            ================================================== -->
+            <div class="card-header">
+                
+                <!-- GROUP KIRI: BADGE & JAM DIGITAL -->
+                <div class="badge-group">
+                    <div class="brand-badge">
+                        <div class="status-dot" id="statusDot"></div>
+                        <span id="connectionBadge">OFFLINE</span>
+                    </div>
+                    <div id="digitalClock" class="header-clock">00:00:00</div>
+                </div>
+                
+                <!-- LOGO POJOK KANAN -->
+                <div class="logo-group">
+                    <img src="logo-unnes.png" alt="Logo UNNES" class="brand-logo">
+                </div>
+            </div>
+
+            <!-- =================================================
+                 STATUS
+            ================================================== -->
+            <div class="status-container" id="statusContainer">
+                <!-- ICON -->
+                <div class="icon-wrapper" id="statusIcon">⏳</div>
+
+                <!-- WARNING MESSAGE -->
+                <div class="warning-message" id="warningMessage" style="display: none;"></div>
+
+                <!-- TITLE -->
+                <h1 class="status-title" id="statusText">MENUNGGU</h1>
+
+                <!-- SUBTITLE -->
+                <div class="status-subtitle" id="statusSub">
+                    Menunggu menghubungkan ESP32...
+                </div>
+            </div>
+
+            <!-- =================================================
+                 DATA
+            ================================================== -->
+            <div class="bottom-panel">
+                <!-- dB -->
+                <div class="info-box">
+                    <div class="db-info-group">
+                        <span class="box-label">🎙️ INTENSITAS SUARA</span>
+                        <span class="db-subtext">Ambang Batas: 55 dB</span>
+                    </div>
+                    <div class="db-value-container">
+                        <span class="db-value" id="dbValue">0.0</span>
+                        <span class="db-unit">dB</span>
+                    </div>
+                </div>
+
+                <!-- AKTIVITAS RUANGAN -->
+                <div class="info-box">
+                    <div class="db-info-group">
+                        <span class="box-label">🚶 AKTIVITAS RUANGAN</span>
+                        <span class="db-subtext">Tingkat pergerakan sensor PIR</span>
+                    </div>
+                    <div class="db-value-container">
+                        <span class="activity-value" id="activityValue">-</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- FOOTER -->
+        <div class="footer-info">
+            NOISE GUARD SYSTEM &bull; REAL-TIME MONITORING
+        </div>
+    </div>
+
+    <!-- =====================================================
+         JAVASCRIPT
+    ====================================================== -->
+    <script>
+        // =====================================================
+        // KONFIGURASI
+        // =====================================================
+        const POLLING_INTERVAL = 500;
+        const CONNECT_DELAY = 2000;
+
+        let espOnlineSince = null;
+        let espConnected = false;
+
+        const body = document.getElementById("body");
+        const mainCard = document.getElementById("mainCard");
+        const statusIcon = document.getElementById("statusIcon");
+        const statusText = document.getElementById("statusText");
+        const statusSub = document.getElementById("statusSub");
+        const statusDot = document.getElementById("statusDot");
+        const connectionBadge = document.getElementById("connectionBadge");
+        const dbValue = document.getElementById("dbValue");
+        const activityValue = document.getElementById("activityValue");
+        const warningMessage = document.getElementById("warningMessage");
+
+        // =====================================================
+        // PENENTU WAKTU OTOMATIS (MENGIKUTI #digitalClock DI WEB)
+        // Pagi  : 05:01 - 10:00
+        // Siang : 10:01 - 15:00
+        // Sore  : 15:01 - 20:00
+        // Malam : 20:01 - 05:00
+        // =====================================================
+        function syncSkyWithWebClock() {
+            const clockElement = document.getElementById("digitalClock");
+            if (!clockElement) return;
+
+            const parts = clockElement.innerText.trim().split(":");
+            if (parts.length < 2) return;
+
+            const hours = parseInt(parts[0], 10);
+            const minutes = parseInt(parts[1], 10);
+            if (isNaN(hours) || isNaN(minutes)) return;
+
+            const totalMinutes = hours * 60 + minutes;
+            let periodClass = "time-malam";
+
+            if (totalMinutes >= 301 && totalMinutes <= 600) {
+                periodClass = "time-pagi";   // 05:01 - 10:00
+            } else if (totalMinutes >= 601 && totalMinutes <= 900) {
+                periodClass = "time-siang";  // 10:01 - 15:00
+            } else if (totalMinutes >= 901 && totalMinutes <= 1200) {
+                periodClass = "time-sore";   // 15:01 - 20:00
+            } else {
+                periodClass = "time-malam";  // 20:01 - 05:00
+            }
+
+            if (!body.classList.contains(periodClass)) {
+                body.classList.remove("time-pagi", "time-siang", "time-sore", "time-malam");
+                body.classList.add(periodClass);
+            }
+        }
+
+        function setStatusMode(modeClass) {
+            body.classList.remove("menunggu-mode", "aman-mode", "berisik-mode");
+            body.classList.add(modeClass);
+        }
+
+        // =====================================================
+        // JAM DIGITAL (BAWAAN WEB)
+        // =====================================================
+        function updateClock() {
+            const clockElement = document.getElementById("digitalClock");
+            if (!clockElement) return;
+
+            const now = new Date();
+            const hours = String(now.getHours()).padStart(2, '0');
+            const minutes = String(now.getMinutes()).padStart(2, '0');
+            const seconds = String(now.getSeconds()).padStart(2, '0');
+            
+            clockElement.innerText = `${hours}:${minutes}:${seconds}`;
+            syncSkyWithWebClock();
+        }
+        setInterval(updateClock, 1000);
+        updateClock();
+
+        // =====================================================
+        // UPDATE KETERANGAN AKTIVITAS RUANGAN
+        // =====================================================
+        function updateActivityState(data) {
+            if (!activityValue) return;
+
+            const rawActivity = data.aktivitas ?? data.activity;
+
+            if (!rawActivity) {
+                activityValue.innerText = "-";
+                activityValue.className = "activity-value";
+                return;
+            }
+
+            const level = String(rawActivity).trim().toUpperCase();
+            activityValue.innerText = level;
+
+            if (level === "RENDAH") {
+                activityValue.className = "activity-value activity-low";
+            } else if (level === "SEDANG") {
+                activityValue.className = "activity-value activity-medium";
+            } else if (level === "TINGGI") {
+                activityValue.className = "activity-value activity-high";
+            } else {
+                activityValue.className = "activity-value";
+            }
+        }
+
+        function clearDangerElements() {
+            warningMessage.style.display = "none";
+            warningMessage.innerHTML = "";
+            statusIcon.className = "icon-wrapper";
+            statusIcon.style.display = "flex";
+            statusIcon.innerHTML = "⏳";
+        }
+
+        function showWaitingStatus() {
+            mainCard.className = "card menunggu-theme";
+            setStatusMode("menunggu-mode");
+            connectionBadge.innerText = "OFFLINE";
+            statusDot.style.backgroundColor = "#8190a6";
+            clearDangerElements();
+            statusIcon.innerHTML = "⏳";
+            statusText.innerHTML = "MENUNGGU";
+            statusSub.innerText = "Menunggu menghubungkan ESP32...";
+            dbValue.innerText = "0.0";
+            activityValue.innerText = "-";
+            activityValue.className = "activity-value";
+        }
+
+        function showSafeStatus(data) {
+            mainCard.className = "card aman-theme";
+            setStatusMode("aman-mode");
+            connectionBadge.innerText = "TERHUBUNG";
+            statusDot.style.backgroundColor = "#4da3ff";
+            clearDangerElements();
+            statusIcon.innerHTML = "🛡️";
+            statusText.innerHTML = "AMAN";
+            statusSub.innerText = "Tingkat Suara Normal & Terkendali";
+
+            const db = Number(data.db);
+            if (Number.isFinite(db)) {
+                dbValue.innerText = db.toFixed(1);
+            } else {
+                dbValue.innerText = "0.0";
+            }
+            updateActivityState(data);
+        }
+
+        function showDangerStatus(data) {
+            mainCard.className = "card berisik-theme";
+            setStatusMode("berisik-mode");
+            connectionBadge.innerText = "TERHUBUNG";
+            statusDot.style.backgroundColor = "#ffffff";
+            warningMessage.style.display = "block";
+            warningMessage.innerHTML = `SUARA ANDA MENCAPAI BATAS YANG TELAH DITENTUKAN!<br>MOHON TENANG DAN JANGAN MENGGANGGU PASIEN LAIN!`;
+            statusIcon.className = "icon-wrapper";
+            statusIcon.style.display = "flex";
+            statusIcon.innerHTML = `<div class="warning-logo"></div>`;
+            statusText.innerHTML = "PERINGATAN!";
+            statusSub.innerHTML = `
+                <div class="warning-reference">Berdasarkan KEP-48/MENLH/11/1996</div>
+                <div class="warning-limit">Tingkat kebisingan yang diizinkan untuk rumah sakit adalah 55 dB.</div>
+            `;
+
+            const db = Number(data.db);
+            if (Number.isFinite(db)) {
+                dbValue.innerText = db.toFixed(1);
+            } else {
+                dbValue.innerText = "0.0";
+            }
+            updateActivityState(data);
+        }
+
+        async function fetchESP32Data() {
+            try {
+                const response = await fetch("/api/sensor?t=" + Date.now(), { cache: "no-store" });
+                if (!response.ok) {
+                    throw new Error(`HTTP ${response.status}`);
+                }
+                const data = await response.json();
+                console.log("[SENSOR]", data);
+
+                if (data.online !== true) {
+                    espOnlineSince = null;
+                    espConnected = false;
+                    showWaitingStatus();
+                    return;
+                }
+
+                if (espOnlineSince === null) {
+                    espOnlineSince = Date.now();
+                    espConnected = false;
+                    console.log("[ESP32] Data mulai diterima");
+                    showWaitingStatus();
+                    return;
+                }
+
+                const connectedTime = Date.now() - espOnlineSince;
+                if (connectedTime < CONNECT_DELAY) {
+                    showWaitingStatus();
+                    return;
+                }
+
+                espConnected = true;
+
+                if (data.warning === true) {
+                    showDangerStatus(data);
+                } else {
+                    showSafeStatus(data);
+                }
+            } catch (error) {
+                console.error("[SERVER ERROR]", error);
+                espOnlineSince = null;
+                espConnected = false;
+                mainCard.className = "card menunggu-theme";
+                setStatusMode("menunggu-mode");
+                connectionBadge.innerText = "SERVER OFFLINE";
+                statusDot.style.backgroundColor = "#8190a6";
+                clearDangerElements();
+                statusIcon.innerHTML = "⚠️";
+                statusText.innerHTML = "KONEKSI TERPUTUS";
+                statusSub.innerText = "Tidak dapat menghubungi Cloudflare Worker...";
+                dbValue.innerText = "0.0";
+                activityValue.innerText = "-";
+                activityValue.className = "activity-value";
+            }
+        }
+
+        setInterval(fetchESP32Data, POLLING_INTERVAL);
+        fetchESP32Data();
+    </script>
+</body>
+</html>
