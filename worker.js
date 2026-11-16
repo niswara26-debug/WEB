@@ -20,7 +20,6 @@ export class SensorState {
       const data = await this.ctx.storage.get("sensorData");
       const buzzer = await this.ctx.storage.get("buzzerEnabled");
 
-      // Belum pernah menerima data
       if (!data) {
         return jsonResponse({
           online: false,
@@ -34,19 +33,12 @@ export class SensorState {
         });
       }
 
-      // =====================================================
-      // ESP32 DIANGGAP OFFLINE JIKA
-      // TIDAK ADA DATA SELAMA 5 DETIK
-      // =====================================================
       const OFFLINE_TIMEOUT = 5000;
       const lastSeen = Number(data.lastSeen || 0);
       const online =
         lastSeen > 0 &&
         (Date.now() - lastSeen) <= OFFLINE_TIMEOUT;
 
-      // =====================================================
-      // OFFLINE
-      // =====================================================
       if (!online) {
         return jsonResponse({
           online: false,
@@ -60,9 +52,6 @@ export class SensorState {
         });
       }
 
-      // =====================================================
-      // ONLINE
-      // =====================================================
       return jsonResponse({
         ...data,
         online: true,
@@ -74,7 +63,7 @@ export class SensorState {
     }
 
     // =========================================================
-    // KIRIM LOG KE GOOGLE SHEETS (DIPANGGIL CRON TIAP 30 MENIT)
+    // KIRIM LOG KE GOOGLE SHEETS
     // =========================================================
     if (
       request.method === "POST" &&
@@ -87,7 +76,6 @@ export class SensorState {
         lastSeen > 0 &&
         (Date.now() - lastSeen) <= OFFLINE_TIMEOUT;
 
-      // Siapkan payload (jika ESP32 sedang offline, tetap catat status OFFLINE / 0 dB)
       const payload = online
         ? {
             online: true,
@@ -105,14 +93,26 @@ export class SensorState {
       try {
         const res = await fetch(GOOGLE_SHEETS_WEBHOOK, {
           method: "POST",
-          headers: { "Content-Type": "application/json" },
+          headers: {
+            "Content-Type": "application/json"
+          },
           body: JSON.stringify(payload)
         });
+
         const text = await res.text();
-        return jsonResponse({ success: true, payload, sheetsResponse: text });
+
+        return jsonResponse({
+          success: true,
+          payload,
+          sheetsResponse: text
+        });
+
       } catch (err) {
         return jsonResponse(
-          { success: false, error: err.message },
+          {
+            success: false,
+            error: err.message
+          },
           500
         );
       }
@@ -135,6 +135,7 @@ export class SensorState {
           success: true,
           buzzer: enabled
         });
+
       } catch (error) {
         return jsonResponse(
           {
@@ -148,32 +149,15 @@ export class SensorState {
 
     // =========================================================
     // POST DATA SENSOR DARI ESP32
+    // AUTENTIKASI SUDAH DILAKUKAN WORKER UTAMA
     // =========================================================
     if (
       request.method === "POST" &&
       url.pathname === "/api/sensor"
     ) {
-      // CEK API KEY
-      const apiKey = request.headers.get("X-API-Key");
-
-      if (
-        !apiKey ||
-        !this.env.DEVICE_API_KEY ||
-        apiKey !== this.env.DEVICE_API_KEY
-      ) {
-        return jsonResponse(
-          {
-            success: false,
-            error: "Unauthorized"
-          },
-          401
-        );
-      }
-
       try {
         const body = await request.json();
 
-        // VALIDASI DATA
         if (
           !body.device ||
           !Array.isArray(body.readings)
@@ -197,34 +181,47 @@ export class SensorState {
           );
         }
 
-        // AMBIL DATA TERBARU
-        const reading = body.readings[body.readings.length - 1];
+        const reading =
+          body.readings[body.readings.length - 1];
 
-        // AMBIL STATUS BUZZER DARI STORAGE
-        const storedBuzzer = await this.ctx.storage.get("buzzerEnabled");
+        const storedBuzzer =
+          await this.ctx.storage.get("buzzerEnabled");
 
-        // SIMPAN DATA SENSOR (TERMASUK AKTIVITAS PIR)
         const sensorData = {
           db: Number(reading.db) || 0,
           warning: reading.warning === true,
-          aktivitas: reading.aktivitas ?? reading.activity ?? body.aktivitas ?? body.activity ?? "-",
+
+          aktivitas:
+            reading.aktivitas ??
+            reading.activity ??
+            body.aktivitas ??
+            body.activity ??
+            "-",
+
           buzzer:
             storedBuzzer !== undefined
               ? storedBuzzer
               : reading.buzzer !== false,
+
           device: body.device,
-          timestamp: reading.t || new Date().toISOString(),
+
+          timestamp:
+            reading.t || new Date().toISOString(),
+
           lastSeen: Date.now()
         };
 
-        await this.ctx.storage.put("sensorData", sensorData);
+        await this.ctx.storage.put(
+          "sensorData",
+          sensorData
+        );
 
-        // BALAS KE ESP32
         return jsonResponse({
           success: true,
           message: "Data sensor diterima",
           buzzer: sensorData.buzzer
         });
+
       } catch (error) {
         return jsonResponse(
           {
@@ -256,11 +253,53 @@ export default {
     const url = new URL(request.url);
 
     // =======================================================
+    // AUTENTIKASI API KEY ESP32
+    // =======================================================
+    if (
+      url.pathname === "/api/sensor" &&
+      request.method === "POST"
+    ) {
+      const expectedApiKey = env.DEVICE_API_KEY;
+      const providedApiKey =
+        request.headers.get("X-API-Key");
+
+      // Secret tidak tersedia di runtime Worker
+      if (!expectedApiKey) {
+        return jsonResponse(
+          {
+            success: false,
+            error:
+              "Worker configuration error: DEVICE_API_KEY secret is not available"
+          },
+          500
+        );
+      }
+
+      // API Key tidak cocok
+      if (
+        !providedApiKey ||
+        providedApiKey !== expectedApiKey
+      ) {
+        return jsonResponse(
+          {
+            success: false,
+            error:
+              "Unauthorized: X-API-Key does not match the Worker secret"
+          },
+          401
+        );
+      }
+    }
+
+    // =======================================================
     // API SENSOR
     // =======================================================
     if (url.pathname === "/api/sensor") {
-      const id = env.SENSOR_STATE.idFromName("esp-sound-01");
+      const id =
+        env.SENSOR_STATE.idFromName("esp-sound-01");
+
       const stub = env.SENSOR_STATE.get(id);
+
       return stub.fetch(request);
     }
 
@@ -268,12 +307,18 @@ export default {
     // TES MANUAL PENCATATAN KE GOOGLE SHEETS
     // =======================================================
     if (url.pathname === "/test-log") {
-      const id = env.SENSOR_STATE.idFromName("esp-sound-01");
+      const id =
+        env.SENSOR_STATE.idFromName("esp-sound-01");
+
       const stub = env.SENSOR_STATE.get(id);
+
       return stub.fetch(
-        new Request("https://internal/internal/push-sheets", {
-          method: "POST"
-        })
+        new Request(
+          "https://internal/internal/push-sheets",
+          {
+            method: "POST"
+          }
+        )
       );
     }
 
@@ -303,19 +348,24 @@ export default {
         );
       }
 
-      const id = env.SENSOR_STATE.idFromName("esp-sound-01");
+      const id =
+        env.SENSOR_STATE.idFromName("esp-sound-01");
+
       const stub = env.SENSOR_STATE.get(id);
 
       return stub.fetch(
-        new Request("https://internal/set-buzzer", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json"
-          },
-          body: JSON.stringify({
-            buzzer: state === "on"
-          })
-        })
+        new Request(
+          "https://internal/set-buzzer",
+          {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+              buzzer: state === "on"
+            })
+          }
+        )
       );
     }
 
@@ -329,14 +379,19 @@ export default {
   // CRON TRIGGER OTOMATIS TIAP 30 MENIT
   // =========================================================
   async scheduled(event, env, ctx) {
-    const id = env.SENSOR_STATE.idFromName("esp-sound-01");
+    const id =
+      env.SENSOR_STATE.idFromName("esp-sound-01");
+
     const stub = env.SENSOR_STATE.get(id);
 
     ctx.waitUntil(
       stub.fetch(
-        new Request("https://internal/internal/push-sheets", {
-          method: "POST"
-        })
+        new Request(
+          "https://internal/internal/push-sheets",
+          {
+            method: "POST"
+          }
+        )
       )
     );
   }
